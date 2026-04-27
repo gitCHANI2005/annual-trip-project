@@ -1,27 +1,24 @@
-function validatePersonFields({ id, firstName, lastName, className }) {
-  if (!id || !firstName || !lastName || !className) {
-    return {
-      isValid: false,
-      message: 'id, firstName, lastName and className are required'
-    };
-  }
-
-  return {
-    isValid: true,
-    message: ''
-  };
-}
-
-function isValidIsraeliIdFormat(id) {
+function isValidIsraeliId(id) {
   return /^\d{9}$/.test(String(id));
 }
 
-function isDuplicateId(id, collection) {
-  return collection.some(item => item.id === String(id));
+function hasRequiredFields(fields) {
+  for (const value of Object.values(fields)) {
+    if (value === undefined || value === null || String(value).trim() === '') {
+      return false;
+    }
+  }
+  return true;
+}
+
+function isValidCoordinates(longitude, latitude) {
+  const lon = Number(longitude);
+  const lat = Number(latitude);
+  return (!Number.isNaN(lon) && !Number.isNaN(lat) && lon >= -180 && lon <= 180 && lat >= -90 && lat <= 90);
 }
 
 module.exports = {
-  validatePersonFields,
-  isValidIsraeliIdFormat,
-  isDuplicateId
+  isValidIsraeliId,
+  hasRequiredFields,
+  isValidCoordinates
 };
