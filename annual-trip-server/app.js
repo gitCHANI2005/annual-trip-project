@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const express = require('express');
+const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
@@ -12,11 +13,14 @@ const locationRouter = require('./routes/location.routes');
 const pool = require('./db/db');
 const app = express();
 
+app.use(cors({
+  origin: 'http://localhost:5173',
+  credentials: true
+}));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
-
 app.get('/', (req, res) => {
   res.json({
     message: 'Welcome to the Annual Trip API'

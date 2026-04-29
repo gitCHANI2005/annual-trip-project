@@ -6,13 +6,17 @@ const {
 
 const authMiddleware = require('../middlewares/auth.middleware');
 const teacherAuthNMiddleware = require('../middlewares/teacherAuth.middleware');
+const deviceKeyMiddleware = require('../middlewares/deviceKey.middleware');
 
 const router = express.Router();
 
-router.use(authMiddleware, teacherAuthNMiddleware);
+router.post('/teacher/latest', 
+  deviceKeyMiddleware,
+  updateTeacherLatestLocation,
+  );
 
-router.post('/teacher/latest', updateTeacherLatestLocation);
-
-router.post('/student/latest', updateStudentLatestLocation);
+router.post('/student/latest',
+  deviceKeyMiddleware,
+  updateStudentLatestLocation);
 
 module.exports = router;

@@ -2,16 +2,20 @@ const pool = require('../db/db');
 
 const { isValidIsraeliId, hasRequiredFields, isValidCoordinates } = require('../utils/validators');
 
-const { getlocationtime } = require('../utils/location');
+const { getlocationtime, convertDmsToDecimal} = require('../utils/location');
 
 async function updateTeacherLatestLocation(req, res) {
-  const { teacherid, longitude, latitude, locationtime } = req.body;
+  const { ID, Coordinates, Time } = req.body;
 
-  if (!hasRequiredFields({ teacherid, longitude, latitude })) {
+  if (!hasRequiredFields({ ID, Coordinates, Time })) {
     return res.status(400).json({
-      message: 'teacherid, longitude and latitude are required'
+      message: 'ID, Coordinates and Time are required'
     });
   }
+  const teacherid = ID;
+  const longitude = convertDmsToDecimal(Coordinates?.Longitude);
+  const latitude = convertDmsToDecimal(Coordinates?.Latitude);
+  const locationtime = Time;
 
   if (!isValidIsraeliId(teacherid)) {
     return res.status(400).json({
@@ -39,7 +43,7 @@ async function updateTeacherLatestLocation(req, res) {
 
     const result = await pool.query(
       `
-      INSERT INTO "teacherLatestLocations" ("teacherid", longitude, latitude, "locationtime")
+      INSERT INTO "teacherlatestlocations" ("teacherid", longitude, latitude, "locationtime")
       VALUES ($1, $2, $3, $4)
       ON CONFLICT ("teacherid")
       DO UPDATE SET
@@ -65,13 +69,31 @@ async function updateTeacherLatestLocation(req, res) {
 }
 
 async function updateStudentLatestLocation(req, res) {
-  const { studentid, longitude, latitude, locationtime } = req.body;
+  const { ID, Coordinates, Time } = req.body;
 
-  if (!hasRequiredFields({ studentid, longitude, latitude })) {
+  console.log('--- STUDENT LOCATION REQUEST ---');
+  console.log('req.body:', req.body);
+  console.log('Coordinates:', Coordinates);
+  console.log('Coordinates.Longitude:', Coordinates?.Longitude);
+  console.log('Coordinates.Latitude:', Coordinates?.Latitude);
+
+  if (!hasRequiredFields({ ID, Coordinates, Time })) {
     return res.status(400).json({
-      message: 'studentid, longitude and latitude are required'
+      message: 'ID, Coordinates and Time are required'
     });
   }
+
+  const studentid = ID;
+  const longitude = convertDmsToDecimal(Coordinates?.Longitude);
+  const latitude = convertDmsToDecimal(Coordinates?.Latitude);
+  const locationtime = Time;
+
+  console.log('studentid:', studentid);
+  console.log('converted longitude:', longitude);
+  console.log('converted latitude:', latitude);
+  console.log('Number longitude:', Number(longitude));
+  console.log('Number latitude:', Number(latitude));
+  console.log('locationtime:', locationtime);
 
   if (!isValidIsraeliId(studentid)) {
     return res.status(400).json({
@@ -118,6 +140,9 @@ async function updateStudentLatestLocation(req, res) {
   } catch (error) {
     console.error(error);
 
+
+    console.log('DB returned location:', result.rows[0]);
+    
     return res.status(500).json({
       message: 'Failed to update student location'
     });

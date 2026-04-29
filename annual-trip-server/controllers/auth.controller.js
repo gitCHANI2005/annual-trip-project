@@ -17,9 +17,9 @@ async function login(req, res) {
 
   if (username) {
     if (username !== ADMIN_USERNAME || password !== ADMIN_PASSWORD) {
+      console.error("username:", username, "password:", password, "id:", id );
       return res.status(401).json({
-        message: 'Invalid admin credentials'
-      });
+        message: 'Invalid admin credentials'});
     }
 
     const token = jwt.sign(
@@ -51,6 +51,7 @@ async function login(req, res) {
       );
 
       if (result.rows.length === 0) {
+        console.error("AAA id:", id, "password:", password);
         return res.status(401).json({
           message: 'Invalid teacher credentials'
         });

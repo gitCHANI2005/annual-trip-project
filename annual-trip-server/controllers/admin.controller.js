@@ -6,7 +6,13 @@ const {
  } = require('../utils/validators');
 
 async function createTeacher(req, res) {
+  console.log('body:', req.body);
   const { id, firstname, lastname, classname, password } = req.body;
+  console.log('id: ', id);
+  console.log('firstname: ', firstname);
+  console.log('lastname: ', lastname);
+  console.log('classname: ', classname);
+  console.log('password: ', password);
   if (!hasRequiredFields({ id, firstname, lastname, classname, password })) {
     return res.status(400).json({
       message: 'Missing required fields: id, firstname, lastname, classname, password'
