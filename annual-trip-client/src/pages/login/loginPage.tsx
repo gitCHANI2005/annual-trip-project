@@ -51,6 +51,7 @@ const LoginPage = () => {
     };
 
     return (
+        <div className="login-page-bg">
         <div className ="login-container">
             <BackButton />
                 <h2>התחברות</h2>
@@ -103,11 +104,15 @@ const LoginPage = () => {
                     onChange={(e) => setPassword(e.target.value)}
                     autoComplete="off"
                 />
-                <button onClick={handleLogin} disabled={loading}>
+                <button className="btn btn-outline-success mt-3 custom-outline-button dashboard-button"
+                        onClick={handleLogin} 
+                        disabled={loading}>
                     {loading ? 'מתחבר...' : 'התחבר'}
                 </button>
                 {message && <p>{message}</p>}
         </div>
+                </div>
+
     );
 };
 

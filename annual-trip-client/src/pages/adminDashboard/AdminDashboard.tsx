@@ -11,8 +11,6 @@ import BackButton from "../../components/common/BackButton";
 function AdminDashboard() {
     const [teachers, setTeachers] = useState<Teacher[]>([]);
     const [students, setStudents] = useState<Student[]>([]);  
-    const [showAddTeacher, setShowAddTeacher] = useState(false);
-    const [showTeachers, setShowTeachers] = useState(true);
     const [activeSection, setActiveSection] = useState<
     "teachers" | "addTeacher" | "students" | null
     >(null);
@@ -41,10 +39,10 @@ return (
     <div>
         <BackButton />
 
-        <h1>לוח בקרה למנהלת</h1>
+        <h1>אזור ניהול מנהלת</h1>
 
         <div className="admin-actions">
-        <button
+        <button  className="btn btn-outline-success mt-3 custom-outline-button dashboard-button"
             onClick={() =>
             setActiveSection(activeSection === "addTeacher" ? null : "addTeacher")
             }
@@ -52,7 +50,7 @@ return (
             הוספת מורה
         </button>
 
-        <button
+        <button   className="btn btn-outline-success mt-3 custom-outline-button dashboard-button"
             onClick={() =>
             setActiveSection(activeSection === "teachers" ? null : "teachers")
             }
@@ -60,7 +58,7 @@ return (
             הצגת מורות
         </button>
 
-        <button
+        <button   className="btn btn-outline-success mt-3 custom-outline-button dashboard-button"
             onClick={() =>
             setActiveSection(activeSection === "students" ? null : "students")
             }

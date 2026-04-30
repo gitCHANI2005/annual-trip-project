@@ -19,6 +19,7 @@
 }
 
 body {
+    background: linear-gradient(135deg, #F8FAFC 0%, #E6FFFA 45%, #CCFBF1 100%);
   margin: 0;
   direction: rtl;
   background-color: #F8FAFC;
@@ -69,30 +70,21 @@ p {
     direction: rtl;
 }
 
-:root {
-  --primary-color: #0F766E;
-  --primary-hover: #115E59;
-  --primary-light: #CCFBF1;
+
+.custom-outline-button {
+    background-color: white !important;
+  border-color: #0F766E !important;
+  color: #0F766E !important;
 }
 
-button {
-  background-color: white; 
-  border: 2px solid var(--primary-color);
-  color: var(--primary-color);
-  padding: 12px 28px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 8px 4px;
-  cursor: pointer;
-  border-radius: 6px;
-  font-family: inherit;
+.custom-outline-button:hover {
+  background-color: #0F766E !important;
+  border-color: #0F766E !important;
+  color: white !important;
 }
 
-button:hover {
-  background-color: var(--primary-color);
-  color: white;
+.custom-outline-button:focus {
+  box-shadow: 0 0 0 0.25rem #CCFBF1 !important;
 }
 
 
@@ -102,7 +94,7 @@ button:hover {
   border: 1px solid #E2E8F0;
 }
 
-form {
+/* form {
   max-width: 500px;
   margin: 20px auto;
   border-radius: 8px;
@@ -110,7 +102,7 @@ form {
   padding: 20px;
   border: 1px solid #E2E8F0;
   box-shadow: var(--shadow);
-}
+} */
 
 label {
   display: block;
@@ -144,7 +136,85 @@ select:focus {
   max-width: 400px;
   margin: 40px auto;
   padding: 24px;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.92);
   border: 3px solid #0F766E;
   border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(15, 118, 110, 0.18);
+}
+
+
+
+.login-page-bg {
+  min-height: 100vh;
+  padding: 60px 20px;
+}
+
+
+.login-container h2 {
+  color: #0F766E;
+  font-weight: 700;
+}
+
+.dashboard-button {
+  background-color: #E2E8F0;
+  min-width: 170px;
+  padding: 10px 18px;
+  font-size: 16px;
+  margin: 6px;
+}
+
+.form-message {
+  margin: 8px 0;
+  color: #0F766E;
+}
+
+.student-search-box {
+  width: 280px;
+  margin: 16px 0 24px 40px;
+  margin-right: auto;
+  background-color: rgba(255, 255, 255, 0.92);
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 14px;
+  box-shadow: 0 8px 20px rgba(15, 118, 110, 0.12);
+}
+
+.student-search-box input {
+  margin: 0;
+}
+
+.add-form {
+  max-width: 480px;
+  margin: 24px auto;
+  padding: 28px;
+  background-color: rgba(255, 255, 255, 0.94);
+  border: 2px solid var(--primary-color);
+  border-radius: 14px;
+  box-shadow: 0 12px 30px rgba(15, 118, 110, 0.16);
+}
+
+.add-form h2 {
+  margin-top: 0;
+  margin-bottom: 24px;
+  text-align: center;
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
+.add-form input[type="text"],
+.add-form input[type="password"],
+.add-form select {
+  background-color: white;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  padding: 11px 12px;
+  margin-bottom: 14px;
+}
+
+.add-form input[type="text"]:focus,
+.add-form input[type="password"]:focus,
+.add-form select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px var(--primary-light);
 }

@@ -1,4 +1,4 @@
-import './TeacherTable.css';
+import '../../styles/Table.css';
 
 import type { Teacher } from "../../types/teacher.types";
 

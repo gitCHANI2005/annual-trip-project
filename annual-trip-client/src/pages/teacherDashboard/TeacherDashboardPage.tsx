@@ -39,21 +39,24 @@ function TeacherDashboard() {
   return (
     <div>
     <BackButton />
-        <h1>לוח בקרה למורה</h1>
+        <h1>אזור ניהול מורה</h1>
 
         <div className="teacher-actions">
-        <button onClick={() => 
+        <button className="btn btn-outline-success mt-3 custom-outline-button dashboard-button"
+                onClick={() => 
                 setActiveSection(activeSection === "students" ? null : "students")
         }>
             הצגת תלמידות
         </button>
 
-        <button onClick={() => 
+        <button className="btn btn-outline-success mt-3 custom-outline-button dashboard-button"
+                onClick={() => 
             setActiveSection(activeSection === "addStudent" ? null : "addStudent")}>
             הוספת תלמידה
         </button>
 
-        <button onClick={() => navigate("/teacher/map")}>
+        <button className="btn btn-outline-success mt-3 custom-outline-button dashboard-button"
+                onClick={() => navigate("/teacher/map")}>
             מפה
         </button>
         </div>

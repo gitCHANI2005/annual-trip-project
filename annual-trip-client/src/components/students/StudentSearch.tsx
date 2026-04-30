@@ -19,14 +19,16 @@ function StudentSearch({ onSearch }: StudentSearchProps) {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <input
-                type="text"
-                placeholder="חפש תלמיד..."
-                value={query}
-                onChange={handleChange}
-            />
-        </form>
+        <div className="student-search-box">
+            <form onSubmit={handleSubmit}>
+                <input
+                    type="text"
+                    placeholder="חפש תלמיד..."
+                    value={query}
+                    onChange={handleChange}
+                />
+            </form>
+        </div>
     );
 }
 

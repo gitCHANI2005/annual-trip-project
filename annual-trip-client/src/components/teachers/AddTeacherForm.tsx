@@ -1,7 +1,6 @@
 import { useState } from "react";
 import type {  Teacher } from "../../types/teacher.types";
 import { addTeacher } from "../../api/adminApi";
-import '../../styles/Form.css'
 interface AddTeacherFormProps {
     onTeacherAdded: (teacher: Teacher) => void;
 }
@@ -71,7 +70,7 @@ function AddTeacherForm({ onTeacherAdded }: AddTeacherFormProps) {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
             />
-            <button type="submit" className="submit-button">הוסף מורה</button>     
+            <button type="submit" className="btn btn-outline-success mt-3 custom-outline-button dashboard-button">הוסף מורה</button>     
         </form>
     );
 }   

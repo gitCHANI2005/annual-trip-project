@@ -1,4 +1,5 @@
 const pool = require('../db/db');
+const { getIO } = require('../socket');
 
 const { isValidIsraeliId, hasRequiredFields, isValidCoordinates } = require('../utils/validators');
 
@@ -54,6 +55,12 @@ async function updateTeacherLatestLocation(req, res) {
       `,
       [String(teacherid), Number(longitude), Number(latitude), getlocationtime(locationtime)]
     );
+    getIO().emit('teacher-location-updated', {
+    teacherid: result.rows[0].teacherid,
+    longitude: Number(result.rows[0].longitude),
+    latitude: Number(result.rows[0].latitude),
+    locationtime: result.rows[0].locationtime,
+  });
 
     return res.status(200).json({
       message: 'Teacher location updated successfully',
@@ -132,6 +139,12 @@ async function updateStudentLatestLocation(req, res) {
       `,
       [String(studentid), Number(longitude), Number(latitude), getlocationtime(locationtime)]
     );
+    getIO().emit('student-location-updated', {
+      studentid: result.rows[0].studentid,
+      longitude: Number(result.rows[0].longitude),
+      latitude: Number(result.rows[0].latitude),
+      locationtime: result.rows[0].locationtime,
+    });
 
     return res.status(200).json({
       message: 'Student location updated successfully',
@@ -140,9 +153,6 @@ async function updateStudentLatestLocation(req, res) {
   } catch (error) {
     console.error(error);
 
-
-    console.log('DB returned location:', result.rows[0]);
-    
     return res.status(500).json({
       message: 'Failed to update student location'
     });

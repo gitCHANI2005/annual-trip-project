@@ -3,7 +3,6 @@
 import { useState } from "react";
 import type { Student } from "../../types/student.types";
 import { addStudent } from "../../api/teacherApi";
-import "../../styles/Form.css";
 
 interface AddStudentFormProps {
   onStudentAdded: (student: Student) => void;
@@ -83,7 +82,7 @@ function AddStudentForm({ onStudentAdded }: AddStudentFormProps) {
         onChange={(e) => setClassname(e.target.value)}
       />
 
-      <button type="submit" className="submit-button">
+      <button type="submit" className="btn btn-outline-success mt-3 custom-outline-button dashboard-button">
         הוסף תלמידה
       </button>
     </form>

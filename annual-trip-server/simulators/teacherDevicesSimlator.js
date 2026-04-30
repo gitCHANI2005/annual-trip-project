@@ -1,9 +1,6 @@
-// simulator, a file that simulates teacher devices sending their current location.
-//  Every minute, the file simulates the movement and creates a loop that simulates
-
 const SERVER_URL = 'http://localhost:3000/location/teacher/latest';
 
-const INTERVAL_MS = 6000
+const INTERVAL_MS = 10000
 
 const DEVICE_KEY = 'teacher_device_key_123'
 
@@ -25,10 +22,9 @@ const teachers = [
   },
 ];
 
-// Create a small movement
 
 function moveTeacher(teacher){
-    const smallChange = 0.0003;
+    const smallChange = 0.0006;
 
     teacher.latitude += (Math.random() - 0.5) * smallChange;
     teacher.longitude += (Math.random() - 0.5) * smallChange;

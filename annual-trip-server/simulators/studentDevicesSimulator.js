@@ -1,290 +1,290 @@
-// simulator, a file that simulates student devices sending their current location.
-//  Every minute, the file simulates the movement and creates a loop that simulates
-
 const SERVER_URL = 'http://localhost:3000/location/student/latest';
 
-const INTERVAL_MS = 6000
+const SEND_EVERY_MS  = 20000
+const SPREAD_WINDOW_MS = 18000;
 
 const DEVICE_KEY = 'student_device_key_123'
 
 const students = [
   {
     ID: '123123673',
-    latitude: 31.7809,
-    longitude: 35.2077,
+    latitude: 31.783963,
+    longitude: 35.209069,
   },
   {
     ID: '435476289',
-    latitude: 31.7813,
-    longitude: 35.2082,
+    latitude: 31.781860,
+    longitude: 35.213540,
   },
   {
     ID: '376834657',
-    latitude: 31.7804,
-    longitude: 35.2071,
+    latitude: 31.775824,
+    longitude: 35.212909,
   },
-
   {
     ID: '200000001',
-    latitude: 31.7812,
-    longitude: 35.2079,
+    latitude: 31.773973,
+    longitude: 35.203079,
   },
   {
     ID: '200000002',
-    latitude: 31.7807,
-    longitude: 35.2075,
+    latitude: 31.785955,
+    longitude: 35.197703,
   },
   {
     ID: '200000003',
-    latitude: 31.7820,
-    longitude: 35.2085,
+    latitude: 31.788962,
+    longitude: 35.216313,
   },
   {
     ID: '200000004',
-    latitude: 31.7798,
-    longitude: 35.2069,
+    latitude: 31.774668,
+    longitude: 35.221983,
   },
   {
     ID: '200000005',
-    latitude: 31.7830,
-    longitude: 35.2091,
+    latitude: 31.767036,
+    longitude: 35.206373,
   },
   {
     ID: '200000006',
-    latitude: 31.7789,
-    longitude: 35.2062,
+    latitude: 31.778373,
+    longitude: 35.190286,
   },
   {
     ID: '200000007',
-    latitude: 31.7841,
-    longitude: 35.2100,
+    latitude: 31.795426,
+    longitude: 35.198331,
   },
   {
     ID: '200000008',
-    latitude: 31.7778,
-    longitude: 35.2055,
+    latitude: 31.798748,
+    longitude: 35.211498,
   },
   {
     ID: '200000009',
-    latitude: 31.7850,
-    longitude: 35.2112,
+    latitude: 31.777731,
+    longitude: 35.230270,
   },
   {
     ID: '200000010',
-    latitude: 31.7769,
-    longitude: 35.2048,
+    latitude: 31.760545,
+    longitude: 35.214797,
   },
   {
     ID: '200000011',
-    latitude: 31.7828,
-    longitude: 35.2050,
+    latitude: 31.769963,
+    longitude: 35.184350,
   },
   {
     ID: '200000012',
-    latitude: 31.7795,
-    longitude: 35.2110,
+    latitude: 31.803236,
+    longitude: 35.222902,
   },
+
   {
     ID: '200000013',
-    latitude: 31.7860,
-    longitude: 35.2065,
+    latitude: 31.805087,
+    longitude: 35.219375,
   },
-
   {
     ID: '200000014',
-    latitude: 31.8020,
-    longitude: 35.1685,
-  },
-  {
-    ID: '200000015',
-    latitude: 31.7480,
-    longitude: 35.2180,
+    latitude: 31.756026,
+    longitude: 35.218493,
   },
 
-  // כיתה ו2 - מורה: 215225673
+  {
+    ID: '200000015',
+    latitude: 31.788112,
+    longitude: 35.176578,
+  },
+
   {
     ID: '200000016',
-    latitude: 31.7816,
-    longitude: 35.2085,
+    latitude: 31.784881,
+    longitude: 35.209397,
   },
   {
     ID: '200000017',
-    latitude: 31.7810,
-    longitude: 35.2080,
+    latitude: 31.783249,
+    longitude: 35.214275,
   },
   {
     ID: '200000018',
-    latitude: 31.7824,
-    longitude: 35.2090,
+    latitude: 31.777266,
+    longitude: 35.215245,
   },
   {
     ID: '200000019',
-    latitude: 31.7802,
-    longitude: 35.2074,
+    latitude: 31.772391,
+    longitude: 35.208300,
   },
   {
     ID: '200000020',
-    latitude: 31.7834,
-    longitude: 35.2098,
+    latitude: 31.776731,
+    longitude: 35.197787,
   },
   {
     ID: '200000021',
-    latitude: 31.7791,
-    longitude: 35.2066,
+    latitude: 31.787255,
+    longitude: 35.196442,
   },
   {
     ID: '200000022',
-    latitude: 31.7845,
-    longitude: 35.2105,
+    latitude: 31.793067,
+    longitude: 35.217757,
   },
   {
     ID: '200000023',
-    latitude: 31.7782,
-    longitude: 35.2059,
+    latitude: 31.779034,
+    longitude: 35.224943,
   },
   {
     ID: '200000024',
-    latitude: 31.7853,
-    longitude: 35.2115,
+    latitude: 31.765652,
+    longitude: 35.214972,
   },
   {
     ID: '200000025',
-    latitude: 31.7772,
-    longitude: 35.2050,
+    latitude: 31.764306,
+    longitude: 35.197287,
   },
   {
     ID: '200000026',
-    latitude: 31.7829,
-    longitude: 35.2056,
+    latitude: 31.785211,
+    longitude: 35.186984,
   },
   {
     ID: '200000027',
-    latitude: 31.7798,
-    longitude: 35.2118,
+    latitude: 31.799248,
+    longitude: 35.194829,
   },
   {
     ID: '200000028',
-    latitude: 31.7862,
-    longitude: 35.2070,
+    latitude: 31.795007,
+    longitude: 35.228576,
   },
   {
     ID: '200000029',
-    latitude: 31.7764,
-    longitude: 35.2092,
+    latitude: 31.772136,
+    longitude: 35.232082,
   },
   {
     ID: '200000030',
-    latitude: 31.7840,
-    longitude: 35.2045,
+    latitude: 31.757527,
+    longitude: 35.216573,
   },
   {
     ID: '200000031',
-    latitude: 31.7780,
-    longitude: 35.2122,
+    latitude: 31.758343,
+    longitude: 35.193245,
   },
+
   {
     ID: '200000032',
-    latitude: 31.7868,
-    longitude: 35.2104,
+    latitude: 31.794249,
+    longitude: 35.180559,
   },
   {
     ID: '200000033',
-    latitude: 31.7758,
-    longitude: 35.2068,
+    latitude: 31.806374,
+    longitude: 35.218993,
   },
 
   {
     ID: '200000034',
-    latitude: 31.8040,
-    longitude: 35.1690,
+    latitude: 31.760558,
+    longitude: 35.228873,
   },
   {
     ID: '200000035',
-    latitude: 31.7465,
-    longitude: 35.2205,
+    latitude: 31.776582,
+    longitude: 35.176154,
   },
 
   {
     ID: '200000036',
-    latitude: 31.7808,
-    longitude: 35.2074,
+    latitude: 31.784274,
+    longitude: 35.209215,
   },
   {
     ID: '200000037',
-    latitude: 31.7802,
-    longitude: 35.2070,
+    latitude: 31.781150,
+    longitude: 35.214590,
   },
   {
     ID: '200000038',
-    latitude: 31.7815,
-    longitude: 35.2080,
+    latitude: 31.773589,
+    longitude: 35.212975,
   },
   {
     ID: '200000039',
-    latitude: 31.7795,
-    longitude: 35.2064,
+    latitude: 31.770841,
+    longitude: 35.200830,
   },
   {
     ID: '200000040',
-    latitude: 31.7825,
-    longitude: 35.2088,
+    latitude: 31.778346,
+    longitude: 35.192213,
   },
   {
     ID: '200000041',
-    latitude: 31.7786,
-    longitude: 35.2057,
+    latitude: 31.792289,
+    longitude: 35.196750,
   },
   {
     ID: '200000042',
-    latitude: 31.7836,
-    longitude: 35.2096,
+    latitude: 31.794064,
+    longitude: 35.221969,
   },
   {
     ID: '200000043',
-    latitude: 31.7775,
-    longitude: 35.2050,
+    latitude: 31.777237,
+    longitude: 35.229865,
   },
   {
     ID: '200000044',
-    latitude: 31.7847,
-    longitude: 35.2106,
+    latitude: 31.759443,
+    longitude: 35.218521,
   },
   {
     ID: '200000045',
-    latitude: 31.7766,
-    longitude: 35.2044,
+    latitude: 31.761483,
+    longitude: 35.191507,
   },
   {
     ID: '200000046',
-    latitude: 31.7823,
-    longitude: 35.2048,
+    latitude: 31.785969,
+    longitude: 35.178719,
   },
+
   {
     ID: '200000047',
-    latitude: 31.7790,
-    longitude: 35.2108,
+    latitude: 31.806287,
+    longitude: 35.201355,
   },
   {
     ID: '200000048',
-    latitude: 31.7856,
-    longitude: 35.2062,
+    latitude: 31.793888,
+    longitude: 35.234275,
   },
 
   {
     ID: '200000049',
-    latitude: 31.8030,
-    longitude: 35.1680,
+    latitude: 31.753303,
+    longitude: 35.207200,
   },
+
   {
     ID: '200000050',
-    latitude: 31.7470,
-    longitude: 35.2190,
+    latitude: 31.791411,
+    longitude: 35.185173,
   },
 ];
 // Create a small movement
 
 function moveStudent(student){
-    const smallChange = 0.0003;
+    const smallChange = 0.001;
 
     student.latitude += (Math.random() - 0.5) * smallChange;
     student.longitude += (Math.random() - 0.5) * smallChange;
@@ -346,24 +346,26 @@ async function sendStudentLocation(student){
     }
 }
 
-async function sendAllStudentsLocations() {
-    console.log('Sending students locations...');
-
-    for (const student of students) {
-        await sendStudentLocation(student);
-    }
-
-    console.log('Cycle completed\n');
-}
-
 function startSimulator() {
   console.log('Student devices simulator started');
   console.log(`Sending updates to: ${SERVER_URL}`);
-  console.log(`Interval: ${INTERVAL_MS / 1000} seconds\n`);
+  console.log(`Each student sends every: ${SEND_EVERY_MS / 1000} seconds`);
+  console.log(`Students are spread over: ${SPREAD_WINDOW_MS / 1000} seconds\n`);
 
-  sendAllStudentsLocations();
+  const delayBetweenStudents = SPREAD_WINDOW_MS / students.length;
 
-  setInterval(sendAllStudentsLocations, INTERVAL_MS);
+  students.forEach((student, index) => {
+    const initialDelay = index * delayBetweenStudents;
+
+    setTimeout(() => {
+      sendStudentLocation(student);
+
+      setInterval(() => {
+        sendStudentLocation(student);
+      }, SEND_EVERY_MS);
+    }, initialDelay);
+  });
 }
+
 
 startSimulator();
