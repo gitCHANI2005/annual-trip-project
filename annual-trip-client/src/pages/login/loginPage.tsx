@@ -52,6 +52,9 @@ const LoginPage = () => {
 
     return (
         <div className="login-page-bg">
+        <div className="login-page-header">
+            <h1>מערכת ניהול הטיול השנתי</h1>
+        </div>
         <div className ="login-container">
             <BackButton />
                 <h2>התחברות</h2>

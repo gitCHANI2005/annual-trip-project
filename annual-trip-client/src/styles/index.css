@@ -19,7 +19,7 @@
 }
 
 body {
-    background: linear-gradient(135deg, #F8FAFC 0%, #E6FFFA 45%, #CCFBF1 100%);
+  background: linear-gradient(135deg, #F8FAFC, #E6FFFA);
   margin: 0;
   direction: rtl;
   background-color: #F8FAFC;
@@ -29,29 +29,36 @@ body {
 
 h1,
 h2 {
+    color: #0F766E !important;
   font-family: var(--heading);
   font-weight: 500;
-  color: var(--text-h);
 }
 
 h1 {
   font-size: 56px;
   letter-spacing: -1.68px;
   margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
 }
+
 h2 {
+  color: var(--text-h);
   font-size: 24px;
   line-height: 118%;
   letter-spacing: -0.24px;
   margin: 0 0 8px;
-  @media (max-width: 1024px) {
+}
+
+@media (max-width: 1024px) {
+  h1 {
+    font-size: 36px;
+    margin: 20px 0;
+  }
+
+  h2 {
     font-size: 20px;
   }
 }
+
 p {
   margin: 0;
 }
@@ -147,6 +154,18 @@ select:focus {
 .login-page-bg {
   min-height: 100vh;
   padding: 60px 20px;
+}
+
+.login-page-header h1 {
+  margin: 0;
+  color: #0F766E;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.login-page-header {
+  text-align: center;
+  margin-bottom: 18px;
 }
 
 
