@@ -1,5 +1,3 @@
-// טופס הוספת תלמידה חדשה
-
 import { useState } from "react";
 import type { Student } from "../../types/student.types";
 import { addStudent } from "../../api/teacherApi";

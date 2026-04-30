@@ -17,7 +17,14 @@ function TeacherDashboard() {
     const fetchStudents = async () => {
       try {
         const studentsData = await getStudents();
-        setStudents(studentsData);
+        setStudents(
+          [...studentsData].sort((a, b) =>
+            `${a.lastname} ${a.firstname}`.localeCompare(
+              `${b.lastname} ${b.firstname}`,
+              "he"
+            )
+          )
+        );
       } catch (error) {
         console.error("Error fetching students:", error);
       }
@@ -27,7 +34,14 @@ function TeacherDashboard() {
   }, []);
 
   const handleStudentAdded = (student: Student) => {
-    setStudents((prevStudents) => [...prevStudents, student]);
+    setStudents((prev) =>
+      [...prev, student].sort((a, b) =>
+        `${a.lastname} ${a.firstname}`.localeCompare(
+          `${b.lastname} ${b.firstname}`,
+          "he"
+        )
+      )
+    );
   };
 
   const filteredStudents = students.filter((student) =>

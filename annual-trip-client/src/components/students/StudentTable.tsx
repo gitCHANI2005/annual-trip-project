@@ -1,4 +1,3 @@
-
 import type { Student } from "../../types/student.types";
 import '../../styles/Table.css';
 

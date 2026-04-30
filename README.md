@@ -25,16 +25,27 @@
 ## טכנולוגיות
 
 ### צד לקוח
-React + Vite, TypeScript, CSS, Google Maps API, Socket.IO Client
+
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![CSS](https://img.shields.io/badge/CSS-663399?style=for-the-badge&logo=css&logoColor=white)
+![Google Maps](https://img.shields.io/badge/Google%20Maps-4285F4?style=for-the-badge&logo=googlemaps&logoColor=white)
+![Socket.IO Client](https://img.shields.io/badge/Socket.IO_Client-010101?style=for-the-badge&logo=socketdotio&logoColor=white)
 
 ### צד שרת
-Node.js, Express, PostgreSQL, Socket.IO, JWT
+
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![Express](https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
+![Socket.IO](https://img.shields.io/badge/Socket.IO-010101?style=for-the-badge&logo=socketdotio&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white)
 
 ### כלי פיתוח ובדיקה
-- Postman - בדיקת API במהלך הפיתוח.
-- Git & GitHub - ניהול גרסאות והגשת הפרויקט.
 
-## שיקולי בחירת טכנולוגיות
+![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
+![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
+![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)
 
 ## שיקולי בחירת טכנולוגיות
 
@@ -42,7 +53,6 @@ Node.js, Express, PostgreSQL, Socket.IO, JWT
 - בחרתי ב־Node.js ו־Express כי רציתי לבנות API פשוט וברור, עם הפרדה בין routes, controllers ו־middlewares.
 - בחרתי ב־PostgreSQL כי הנתונים במערכת הם רלציוניים: מורות, תלמידות, כיתות ומיקומים. לכן מסד נתונים טבלאי מתאים כאן יותר ממבנה לא רלציוני.
 - בחרתי ב־Socket.IO אחרי שבתחילת הפיתוח בדקתי אפשרות של Polling. המעבר ל־WebSocket איפשר לעדכן את המפה רק כאשר מתקבל מיקום חדש, במקום לשלוח בקשות חוזרות מהלקוח.
-
 
 ## מבנה הפרויקט
 
@@ -77,22 +87,22 @@ annual-trip/
 └── README.md
 ``` 
 
-## ישויות מרכזיות וקשרי גומלין
-המערכת מבוססת על מספר ישויות מרכזיות:
+## מבנה הנתונים וקשרי גומלין
 
-- מנהלת - משתמשת בעלת הרשאות ניהול, יכולה לצפות במורות ותלמידות ולהוסיף מורות.
-- מורה - משתמשת המשויכת לכיתה מסוימת, ויכולה לצפות בתלמידות הכיתה שלה.
-- תלמידה - משויכת לכיתה מסוימת, וניתן לעדכן עבורה מיקום אחרון.
-- כיתה - משמשת לקישור בין מורה לתלמידות שלה.
-- מיקום אחרון של מורה - נשמר בנפרד מנתוני המורה.
-- מיקום אחרון של תלמידה - נשמר בנפרד מנתוני התלמידה.
+המערכת מבוססת על ארבע טבלאות מרכזיות במסד הנתונים:
 
-קשרי הגומלין העיקריים:
-- כל מורה משויכת לכיתה אחת.
-- כל תלמידה משויכת לכיתה אחת.
-- מורה יכולה לראות את התלמידות ששייכות לכיתה שלה.
-- לכל מורה ולכל תלמידה נשמר מיקום אחרון לצורך הצגה על המפה וחישוב מרחק.
+- `teachers` - שמירת פרטי המורות, כולל מזהה, שם, סיסמה מוצפנת וכיתה.
+- `students` - שמירת פרטי התלמידות, כולל מזהה, שם וכיתה.
+- `teacherlatestlocations` - שמירת המיקום האחרון של כל מורה.
+- `studentlatestlocations` - שמירת המיקום האחרון של כל תלמידה.
 
+הקישור בין מורה לתלמידות מתבצע לפי שדה `classname`.
+כל מורה רואה את התלמידות המשויכות לאותה כיתה שלה.
+
+המיקום האחרון של מורה נשמר בטבלה נפרדת כדי להפריד בין פרטי המורה לבין נתוני המיקום.
+גם המיקום האחרון של תלמידה נשמר בטבלה נפרדת כדי לאפשר עדכון מיקום בלי לשנות את פרטי התלמידה עצמה.
+
+התחברות מנהלת מתבצעת לפי פרטי התחברות המוגדרים בקובץ `.env`, ולכן מנהלת אינה נשמרת כטבלה נפרדת במסד הנתונים.
 
 ## הרצת צד השרת
 
@@ -114,7 +124,6 @@ npm run dev
 השרת ירוץ בכתובת:
 http://localhost:3000
 
-
 ## הרצת צד הלקוח
 
 יש להיכנס לתיקיית הלקוח:
@@ -132,6 +141,7 @@ npm install
 ``` bash
 npm run dev
 ```
+
 המערכת תפתח בכתובת:
 http://localhost:5173
 
@@ -143,6 +153,7 @@ http://localhost:5173
 
 יש להריץ כל סימולטור בטרמינל נפרד:
 בטרמינל ראשון:
+
 ```bash
 cd annual-trip-server
 node simulators/teacherDevicesSimlator.js
@@ -153,7 +164,6 @@ node simulators/teacherDevicesSimlator.js
 cd annual-trip-server
 node simulators/studentDevicesSimulator.js
 ```
-
 
 ## משתני סביבה
 בתיקיית השרת יש ליצור קובץ `.env` עם הערכים הבאים:
@@ -186,6 +196,9 @@ VITE_GOOGLE_MAPS_API_KEY=your_google_maps_api_key
 
 בנוסף, אם קיים token, הוא נשלח אוטומטית ב־Header:
 `Authorization: Bearer <token>`
+
+בקשות עדכון מיקום ממכשירים נשלחות עם Header נוסף:
+`X-Device-Key: <device_key>`
 
 ### התחברות
 
@@ -222,7 +235,6 @@ VITE_GOOGLE_MAPS_API_KEY=your_google_maps_api_key
 | POST | `/location/student/latest` | עדכון מיקום אחרון של תלמידה |
 | POST | `/location/teacher/latest` | עדכון מיקום אחרון של מורה |
 
-
 ## צילומי מסך
 
 ### מסך התחברות
@@ -231,21 +243,17 @@ VITE_GOOGLE_MAPS_API_KEY=your_google_maps_api_key
 ### לוח מנהלת
 ![לוח מנהלת](./screenshots/admin-dashboard.png)
 
-
 ### הוספת מורה
 ![הוספת מורה](./screenshots/add-teacher.png)
 
 ### לוח מורה
 ![לוח מורה](./screenshots/teacher-dashboard.png)
 
-
 ### הוספת תלמידה
 ![הוספת תלמידה](./screenshots/add-student.png)
 
 ### מפת מיקומים
 ![מפת מיקומים](./screenshots/map.png)
-
-
 
 ## ולידציות ואבטחה
 
@@ -255,11 +263,11 @@ VITE_GOOGLE_MAPS_API_KEY=your_google_maps_api_key
 - בקשות עדכון מיקום ממכשירי תלמידות ומורות מוגנות באמצעות device key.
 - הטוקן נשלח מהלקוח לשרת באמצעות Authorization Header.
 
-
 ## הנחות והחלטות תכנון
 
 ### הנחות
 - כל מורה משויכת לכיתה אחת.
+- ייתכן שמספר מורות יהיו משויכות לאותה כיתה, ולכן הקישור בין מורה לתלמידות מתבצע לפי שם הכיתה ולא לפי מזהה מורה.
 - כל תלמידה משויכת לכיתה אחת.
 - נשמר המיקום האחרון בלבד של כל תלמידה ומורה, ולא היסטוריית מיקומים מלאה.
 - תלמידה נחשבת רחוקה מדי אם המרחק האווירי בינה לבין המורה גדול מ־3 ק״מ.
@@ -272,6 +280,16 @@ VITE_GOOGLE_MAPS_API_KEY=your_google_maps_api_key
 - WebSocket נבחר עבור עדכוני מיקום כדי לאפשר לשרת לדחוף עדכונים ללקוח כאשר מתקבל מיקום חדש.
 - בתחילת הפיתוח נבדקה אפשרות של Polling לעדכון המפה, אך בהמשך הוחלט לעבור ל־WebSocket כדי לאפשר עדכון מיידי יותר של המיקומים ולמנוע בקשות חוזרות מהלקוח כאשר אין שינוי בנתונים.
 - חישוב המרחק בין המורה לתלמידות מתבצע באמצעות נוסחת Haversine, המתאימה לחישוב מרחק אווירי בין שתי נקודות לפי קווי אורך ורוחב.
+
+## רעיונות לשיפור עתידי
+
+- הוספת מנגנון התראה עבור תלמידה שאמורה להשתתף בטיול אך המכשיר שלה אינו פעיל או לא שלח מיקום במשך זמן מסוים.  
+  כיום תלמידה ללא מיקום עדכני לא תוצג על המפה, ולכן המורה לא בהכרח תדע שיש תלמידה שחסר עבורה מידע.  
+  בעתיד ניתן לבדוק את זמן שליחת המיקום האחרון (`locationtime`) ולהציג למורה התראה אם עבר זמן רב מאז העדכון האחרון.
+
+- הוספת אפשרות לחישוב מסלול הליכה קצר אל תלמידה שהתרחקה מהמורה.  
+  כיום המערכת מזהה תלמידות שנמצאות במרחק של יותר מ־3 ק״מ מהמורה, אך אינה מציגה דרך הגעה אליהן.  
+  בעתיד ניתן להוסיף כפתור ליד כל תלמידה רחוקה, שיחשב ויציג את מסלול ההליכה הקצר ביותר מהמיקום הנוכחי של המורה אל מיקום התלמידה, באמצעות גוגל מפות.
 
 ## יוצרת הפרויקט
 

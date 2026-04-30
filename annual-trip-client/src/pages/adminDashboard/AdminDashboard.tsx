@@ -15,7 +15,15 @@ function AdminDashboard() {
     "teachers" | "addTeacher" | "students" | null
     >(null);
     const handleTeacherAdded = (teacher: Teacher) => {
-    setTeachers((prevTeachers) => [...prevTeachers, teacher]);
+    setTeachers((prev) =>
+        [...prev, teacher].sort((a, b) =>
+        `${a.lastname} ${a.firstname}`.localeCompare(
+            `${b.lastname} ${b.firstname}`,
+            "he"
+        )
+        )
+    );
+
     setActiveSection("teachers");
     };
     useEffect(() => {
